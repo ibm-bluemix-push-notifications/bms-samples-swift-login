@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var appRoute = String();
     var appRegion:String = ".ng.bluemix.net";
     var pushAppGUID = String();
-    
+    var message = String();
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -40,12 +40,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
     }
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        
+        
+        let payLoad = ((((userInfo as NSDictionary).valueForKey("aps") as! NSDictionary).valueForKey("alert") as! NSDictionary).valueForKey("body") as! NSString)
+        message = payLoad as String;
+        NSNotificationCenter.defaultCenter().postNotificationName("pushMessage", object: nil, userInfo: ["message":payLoad])
+    }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         
         let payLoad = ((((userInfo as NSDictionary).valueForKey("aps") as! NSDictionary).valueForKey("alert") as! NSDictionary).valueForKey("body") as! NSString)
         
-        self.showAlert("Recieved Push notifications", message: payLoad)
+        print(payLoad);
+        message = payLoad as String;
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("pushMessage", object: nil, userInfo: ["message":payLoad])
+
+             //  self.showAlert("Recieved Push notifications", message: payLoad)
         
     }
     
