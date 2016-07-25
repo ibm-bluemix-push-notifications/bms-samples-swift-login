@@ -36,14 +36,23 @@ class regsiterViewController: UIViewController, UITextFieldDelegate,UIGestureRec
         NSLog("Touch..");
         //handling code
     }
+    func pushMessage(notification: NSNotification){
+        
+        PopupController
+            .create(self)
+            .show(MessageViewController.instance())
+        
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     override func viewWillAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(regsiterViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(regsiterViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
+          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(regsiterViewController.pushMessage(_:)), name:"pushMessage", object: nil);
     }
     override func viewWillDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)

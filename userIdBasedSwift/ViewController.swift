@@ -21,6 +21,20 @@ class ViewController: UIViewController,UITextFieldDelegate {
         userIdText.delegate = self;
         passwordtext.delegate = self;
         // Do any additional setup after loading the view, typically from a nib.
+        
+      
+
+    }
+    
+    
+    
+    func pushMessage(notification: NSNotification){
+        
+        PopupController
+            .create(self)
+            .show(MessageViewController.instance())
+        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,6 +44,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
     override func viewWillAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
+          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.pushMessage(_:)), name:"pushMessage", object: nil);
     }
     override func viewWillDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)

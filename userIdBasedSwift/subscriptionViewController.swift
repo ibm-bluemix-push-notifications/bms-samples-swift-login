@@ -40,10 +40,11 @@ class subscriptionViewController: UIViewController ,UITextViewDelegate, UIGestur
     }
     
     override func viewWillAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(subscriptionViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(subscriptionViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(subscriptionViewController.registerForPush(_:)), name:"RegisterdPush", object: nil);
+          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(subscriptionViewController.pushMessage(_:)), name:"pushMessage", object: nil);
         
     }
     override func viewWillDisappear(animated: Bool) {
@@ -51,7 +52,14 @@ class subscriptionViewController: UIViewController ,UITextViewDelegate, UIGestur
     }
     
     
-    
+    func pushMessage(notification: NSNotification){
+        
+        PopupController
+            .create(self)
+            .show(MessageViewController.instance())
+        
+        
+    }
     func keyboardWillShow(notification: NSNotification) {
         
         let userInfo:NSDictionary = notification.userInfo!
