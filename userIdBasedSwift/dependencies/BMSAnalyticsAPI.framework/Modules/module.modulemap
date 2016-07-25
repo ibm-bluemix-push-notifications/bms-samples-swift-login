@@ -1,0 +1,10 @@
+framework module BMSAnalyticsAPI {
+  umbrella header "BMSAnalyticsAPI.h"
+
+  export *
+  module * { export * }
+}
+
+module BMSAnalyticsAPI.Swift {
+    header "BMSAnalyticsAPI-Swift.h"
+}
