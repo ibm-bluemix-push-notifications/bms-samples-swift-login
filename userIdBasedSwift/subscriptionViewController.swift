@@ -117,7 +117,7 @@ class subscriptionViewController: UIViewController ,UITextViewDelegate, UIGestur
         print(appDelegate.userid)
         
         push =  BMSPushClient.sharedInstance
-        push.initializeWithPushAppGUID(appDelegate.pushAppGUID, clientSecret: appDelegate.clientSecret)
+        push.initializeWithAppGUID(appDelegate.pushAppGUID, clientSecret: appDelegate.clientSecret)
         
         push.registerWithDeviceToken(deviceToken, WithUserId:appDelegate.userid) { (response, statusCode, error) -> Void in
             
